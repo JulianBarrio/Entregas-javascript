@@ -23,7 +23,7 @@ while(pregunta != "no") {
                   
                 }
                 
-                const productos = [];
+                const productos =[];
                 
                 let calzado = alert("Gracias " + nombre + " por comprar en nuestra tienda, de reglo van unas medias gratis")
                 
