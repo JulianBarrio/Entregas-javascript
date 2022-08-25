@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Interactuamos con el DOM</h1>
+    <h3>Ingrese los datos de los productos a crear</h3>
+
+
+    <form action="" id="form">
+        <label for="">Selecione el tipo de calzado a comprar</label>
+        <select name="clase" id="iclase">
+            <option value="Zapatilla">Zapatilla</option>
+            <option value="Botines">Botines</option>
+            <option value="Ojotas">Ojotas</option>
+        </select>
+        <br>
+        <label for="">Escriba la marca del calzado</label>
+        <input type="text" name="marca" id="imarca">
+        <br>
+        <label for="">Escriba el precio del calzado</label>
+        <input type="number" name="precio" id="iprecio">
+        <button type="submit" id="btnSubmit">Agregar calzado al carrito</button>
+        <br>
+        <button type="button" id="btnMostrar"> Mostrar compra Total</button>
+        <br>
+        <label for="">Selecione la forma de Pago</label>
+        <select name="formaPago" id="formaPago">
+            <option value="Efectivo">Efectivo</option>
+            <option value=" Tarjeta "> Tarjeta </option>
+        </select>
+        <button type="submit" id="btnPagar"> Pagar </button>
+    </form>
+
+    <div id="mostrarProdSolos"></div>
+    <div id="mostrarTodosProd"></div>
+    <div id="mostrarPago"></div>
+
+
+    <script src="./eventofinal.js"></script>
+</body>
+
+</html>
