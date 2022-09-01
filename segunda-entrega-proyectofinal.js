@@ -135,3 +135,43 @@ function mostrarElPago(e) {
     validarPago();
        mostrarPago.innerHTML = `<h5>Usted Eligio pagar con ${formaPago} </h5> `
 }
+
+// duda de como hacer lo de la forma de pago
+
+// switch (formaPago) {
+//     case "Efectivo":
+//         const descuento = x => x * 0.20;
+//         const precioEfectivo = (precioTotal, descuento) => precioTotal - descuento;
+        
+//         let p = document.createElement('p')
+//         p.innerHTML = 'la compra total por pagar en efectivo es ${precioEfectivo}'
+        
+//         break;
+
+//     case "Tarjeta":
+//         const recargo = x => x * 0.10;
+//         const precioTarjeta = (precioTotal, recargo) => precioTotal + recargo;
+        
+//         let span = document.createElement('span')
+//         span.innerHTML = 'la compra total por pagar en efectivo es ${precioTarjeta}'
+//         document.body.append(span)
+
+//         break;
+//     }
+
+//     if (formaPago == Efectivo){
+//         const descuento = x => x * 0.20;
+//         const precioEfectivo = (precioTotal, descuento) => precioTotal - descuento;
+        
+//         let p = document.createElement('p')
+//         p.innerHTML = 'la compra total por pagar en efectivo es ${precioEfectivo}'
+
+//     } else {
+//         const recargo = x => x * 0.10;
+//         const precioTarjeta = (precioTotal, recargo) => precioTotal + recargo;
+        
+//         let span = document.createElement('span')
+//         span.innerHTML = 'la compra total por pagar en efectivo es ${precioTarjeta}'
+//         document.body.append(span)
+
+//     }
