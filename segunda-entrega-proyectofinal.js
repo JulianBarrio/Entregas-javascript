@@ -104,8 +104,9 @@ function mostrarTodosLosProd(e) {
 
 }
 
+
 function validarPago() {
-    formaPago = form.children[13].value;
+    formaPago = form.children[15].value;
     console.log(formaPago)
 }
 
@@ -117,3 +118,20 @@ function mostrarElPago(e) {
 
 
 }
+
+const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
+
+for (const productos of producto) {
+    guardarLocal("Productos agregados", JSON.stringify(productos));
+}
+
+guardarLocal("Productos Pre Cargados", JSON.stringify(producto));
+
+
+const convertirEnString = JSON.stringify(producto)
+ console.log(convertirEnString)
+ 
+
+
+
+ 
