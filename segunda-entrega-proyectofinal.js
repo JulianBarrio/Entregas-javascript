@@ -27,7 +27,7 @@ let btnMostrarPago = document.getElementById('btnPagar')
 let iclase = form.children[1].value;
 let imarca = form.children[4].value;
 let iprecio = form.children[7].value;
-let formaPago = form.children[13].value;
+let formaPago = form.children[17].value;
 
 form.addEventListener('submit', agregarProd)
 btnMostrarProd.addEventListener('click', mostrarTodosLosProd)
@@ -41,9 +41,8 @@ function validarDatos() {
     imarca = form.children[4].value;
     iprecio = form.children[7].value;
 
-    console.log(iclase)
-    console.log(imarca)
-    console.log(iprecio)
+    console.log(`Calzado agregado ${iclase} de la marca ${imarca} $${iprecio}`)
+
 
 
     if (iclase == '' || imarca == '' || iprecio == '') {
@@ -67,10 +66,20 @@ function agregarProd(e) {
             datos.children[1].value = "";
             datos.children[4].value = "";
             datos.children[7].value = "";
-            
+
             mostrarProdSolos.innerHTML = ""
 
             mostrarUnProd()
+
+            const guardarLocal = (clave, valor) => {
+                localStorage.setItem(clave, valor)
+            };
+            guardarLocal("Productos", JSON.stringify(producto));
+            const convertirEnString = JSON.stringify(producto)
+            console.log(convertirEnString)
+
+            
+
 
         } else {
             alert("No se agregara el usuario")
@@ -94,44 +103,35 @@ function mostrarTodosLosProd(e) {
     e.preventDefault();
     mostrarTodosProd.innerHTML = '<h4>Compraste</h4>';
     for (const datos of producto) {
+        
         mostrarProdSolos.innerHTML = ""
         mostrarTodosProd.innerHTML += `        
         <p><strong>${datos.clase}</strong>
          <strong> de Marca: </strong>${datos.marca}
-        <strong>Precio: </strong>${datos.precio}</p>`
+        <strong>Precio: </strong>${datos.precio}</p>`           
 
     }
+    
+    const precioTotal = producto.reduce((acc, dato) => {
+        return acc = acc + dato.precio;
+    }, 0)
+    console.log(precioTotal)
+
+   
+    mostrarPagoTotal.innerHTML = `El importe a pagar total es de $ ${precioTotal}, si paga con Efectivo hay 20% de descuento, si paga con Tarjeta 10% de recargo`
+    
 
 }
 
 
 function validarPago() {
-    formaPago = form.children[15].value;
+    formaPago = form.children[17].value;
     console.log(formaPago)
+   
 }
 
 function mostrarElPago(e) {
     e.preventDefault()
     validarPago();
-
-    mostrarPago.innerHTML = `<h5>Usted Eligio pagar con ${formaPago} </h5>  `
-
-
+       mostrarPago.innerHTML = `<h5>Usted Eligio pagar con ${formaPago} </h5> `
 }
-
-const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
-
-for (const productos of producto) {
-    guardarLocal("Productos agregados", JSON.stringify(productos));
-}
-
-guardarLocal("Productos Pre Cargados", JSON.stringify(producto));
-
-
-const convertirEnString = JSON.stringify(producto)
- console.log(convertirEnString)
- 
-
-
-
- 
