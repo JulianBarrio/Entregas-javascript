@@ -3,6 +3,7 @@ class calzado {
         this.clase = clase
         this.marca = marca
         this.precio = Number(precio)
+
     }
 }
 
@@ -14,6 +15,8 @@ const producto = [];
 
 producto.push(prod1, prod2, prod3)
 console.log(producto)
+
+
 
 let form = document.getElementById('form')
 let inputProd = document.getElementById('iprod')
@@ -67,7 +70,7 @@ function agregarProd(e) {
             datos.children[4].value = "";
             datos.children[7].value = "";
 
-            mostrarProdSolos.innerHTML = ""
+
 
             mostrarUnProd()
 
@@ -78,11 +81,11 @@ function agregarProd(e) {
             const convertirEnString = JSON.stringify(producto)
             console.log(convertirEnString)
 
-            
+
 
 
         } else {
-            alert("No se agregara el usuario")
+            alert("No se agregara el producto")
         }
 
     } else {
@@ -103,23 +106,23 @@ function mostrarTodosLosProd(e) {
     e.preventDefault();
     mostrarTodosProd.innerHTML = '<h4>Compraste</h4>';
     for (const datos of producto) {
-        
+
         mostrarProdSolos.innerHTML = ""
         mostrarTodosProd.innerHTML += `        
         <p><strong>${datos.clase}</strong>
          <strong> de Marca: </strong>${datos.marca}
-        <strong>Precio: </strong>${datos.precio}</p>`           
+        <strong>Precio: </strong>${datos.precio}</p>`
 
     }
-    
+
     const precioTotal = producto.reduce((acc, dato) => {
         return acc = acc + dato.precio;
     }, 0)
     console.log(precioTotal)
 
-   
+
     mostrarPagoTotal.innerHTML = `El importe a pagar total es de $ ${precioTotal}, si paga con Efectivo hay 20% de descuento, si paga con Tarjeta 10% de recargo`
-    
+
 
 }
 
@@ -127,51 +130,75 @@ function mostrarTodosLosProd(e) {
 function validarPago() {
     formaPago = form.children[17].value;
     console.log(formaPago)
-   
+
 }
+
+
 
 function mostrarElPago(e) {
     e.preventDefault()
     validarPago();
-       mostrarPago.innerHTML = `<h5>Usted Eligio pagar con ${formaPago} </h5> `
+
+    mostrarPago.innerHTML = `<h5>Usted Eligio pagar con ${formaPago} </h5> `
+
+    if ("Efectivo" == formaPago) {
+        const precioTotal = producto.reduce((acc, dato) => {
+            return acc = acc + dato.precio;
+        }, 0)
+        const descuento = x => x * 0.20;
+        const precioEfectivo = (precioTotal, descuento) => precioTotal - descuento;
+
+        let p = document.createElement('p')
+        let precioFinalEfectivo = precioEfectivo(precioTotal, descuento(precioTotal))
+
+        p.innerHTML = `la compra total por pagar en efectivo es de $${precioFinalEfectivo}`
+
+        document.body.appendChild(p);
+        console.log(precioFinalEfectivo)
+
+    } else {
+        const precioTotal = producto.reduce((acc, dato) => {
+            return acc = acc + dato.precio;
+        }, 0)
+        const recargo = x => x * 0.10;
+        const precioTarjeta = (precioTotal, recargo) => precioTotal + recargo;
+
+        let span = document.createElement('span')
+        let precioFinalTarjeta = precioTarjeta(precioTotal, recargo(precioTotal))
+
+        span.innerHTML = `la compra total por pagar con tarjeta es de $${precioFinalTarjeta}`
+
+        document.body.append(span);
+        console.log(precioFinalTarjeta)
+    }
 }
 
-// duda de como hacer lo de la forma de pago
+// destructuring y spread
+const persona = {
+    nombre: "Julian",
+    apellido: "Barrio",
+    edad: 30,
+    direccion: {
+        Pais: "Argentina",
+        Ciudad: "Buenos Aires",
+        Calle: "Av. San Martin 2343"
 
-// switch (formaPago) {
-//     case "Efectivo":
-//         const descuento = x => x * 0.20;
-//         const precioEfectivo = (precioTotal, descuento) => precioTotal - descuento;
-        
-//         let p = document.createElement('p')
-//         p.innerHTML = 'la compra total por pagar en efectivo es ${precioEfectivo}'
-        
-//         break;
+    }
 
-//     case "Tarjeta":
-//         const recargo = x => x * 0.10;
-//         const precioTarjeta = (precioTotal, recargo) => precioTotal + recargo;
-        
-//         let span = document.createElement('span')
-//         span.innerHTML = 'la compra total por pagar en efectivo es ${precioTarjeta}'
-//         document.body.append(span)
+};
 
-//         break;
-//     }
+function datosPersona(persona) {
+    return `${persona.nombre} ${persona.apellido} ${persona.edad} ${persona.direccion.Pais}`;
+}
+console.log(datosPersona(persona))
 
-//     if (formaPago == Efectivo){
-//         const descuento = x => x * 0.20;
-//         const precioEfectivo = (precioTotal, descuento) => precioTotal - descuento;
-        
-//         let p = document.createElement('p')
-//         p.innerHTML = 'la compra total por pagar en efectivo es ${precioEfectivo}'
-
-//     } else {
-//         const recargo = x => x * 0.10;
-//         const precioTarjeta = (precioTotal, recargo) => precioTotal + recargo;
-        
-//         let span = document.createElement('span')
-//         span.innerHTML = 'la compra total por pagar en efectivo es ${precioTarjeta}'
-//         document.body.append(span)
-
-//     }
+const detalles = {
+    talle: "44",
+    colorFavorito: "verde"
+}
+const cliente = {
+    ...persona,
+    ...detalles,
+    sexo: "Masculino",
+}
+console.log(cliente)
