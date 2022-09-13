@@ -33,8 +33,25 @@ let iprecio = form.children[7].value;
 let formaPago = form.children[17].value;
 
 form.addEventListener('submit', agregarProd)
+form.addEventListener('submit', () => {
+    Toastify({
+        text: `Agregaste ${iclase} de marca ${imarca} de $ ${iprecio} al carrito`,
+        duration: 5000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+})
 btnMostrarProd.addEventListener('click', mostrarTodosLosProd)
+
 btnMostrarPago.addEventListener('click', mostrarElPago)
+
 
 
 
@@ -49,7 +66,7 @@ function validarDatos() {
 
 
     if (iclase == '' || imarca == '' || iprecio == '') {
-        alert("Error debe completar todos los campos para continuar")
+        swal("Error debe completar todos los campos para continuar")
         inputProd.focus()
         bandera = false;
     } else {
@@ -69,7 +86,7 @@ function agregarProd(e) {
             datos.children[1].value = "";
             datos.children[4].value = "";
             datos.children[7].value = "";
-
+            
 
 
             mostrarUnProd()
@@ -112,6 +129,7 @@ function mostrarTodosLosProd(e) {
         <p><strong>${datos.clase}</strong>
          <strong> de Marca: </strong>${datos.marca}
         <strong>Precio: </strong>${datos.precio}</p>`
+     
 
     }
 
@@ -142,7 +160,8 @@ function mostrarElPago(e) {
     mostrarPago.innerHTML = `<h5>Usted Eligio pagar con ${formaPago} </h5> `
 
     if ("Efectivo" == formaPago) {
-        const precioTotal = producto.reduce((acc, dato) => {
+        
+            const precioTotal = producto.reduce((acc, dato) => {
             return acc = acc + dato.precio;
         }, 0)
         const descuento = x => x * 0.20;
@@ -156,6 +175,23 @@ function mostrarElPago(e) {
         document.body.appendChild(p);
         console.log(precioFinalEfectivo)
 
+        swal({
+            title: "Confirmar Compra",
+            text: `$${precioFinalEfectivo} pagado en Efectivo`,
+            buttons: true,
+            
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              swal("Gracias por comprar en nuestra tienda", {
+                icon: "success",
+              });
+            } else {
+              swal("La compra fue cancelada");
+            }
+          });
+       
+
     } else {
         const precioTotal = producto.reduce((acc, dato) => {
             return acc = acc + dato.precio;
@@ -166,39 +202,26 @@ function mostrarElPago(e) {
         let span = document.createElement('span')
         let precioFinalTarjeta = precioTarjeta(precioTotal, recargo(precioTotal))
 
-        span.innerHTML = `la compra total por pagar con tarjeta es de $${precioFinalTarjeta}`
+        span.innerHTML = `la compra total por pagar con tarjeta es de $${precioFinalTarjeta} <br>`
 
         document.body.append(span);
         console.log(precioFinalTarjeta)
+
+        swal({
+            title: "Confirmar Compra",
+            text: `$${precioFinalTarjeta} pagar con Tarjeta`,
+            buttons: true,
+            
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              swal("Gracias por comprar en nuestra tienda", {
+                icon: "success",
+              });
+            } else {
+              swal("La compra fue cancelada");
+            }
+          });
     }
 }
 
-// destructuring y spread
-const persona = {
-    nombre: "Julian",
-    apellido: "Barrio",
-    edad: 30,
-    direccion: {
-        Pais: "Argentina",
-        Ciudad: "Buenos Aires",
-        Calle: "Av. San Martin 2343"
-
-    }
-
-};
-
-function datosPersona(persona) {
-    return `${persona.nombre} ${persona.apellido} ${persona.edad} ${persona.direccion.Pais}`;
-}
-console.log(datosPersona(persona))
-
-const detalles = {
-    talle: "44",
-    colorFavorito: "verde"
-}
-const cliente = {
-    ...persona,
-    ...detalles,
-    sexo: "Masculino",
-}
-console.log(cliente)
