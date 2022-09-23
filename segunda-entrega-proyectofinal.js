@@ -225,3 +225,33 @@ function mostrarElPago(e) {
     }
 }
 
+
+
+const lista = document.getElementById("lista")
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': 'edbd74efb8msh71c81c9091cd4dbp103596jsn8f7c631923ed',
+		'X-RapidAPI-Host': 'free-nba.p.rapidapi.com'
+	}
+};
+
+fetch('https://free-nba.p.rapidapi.com/players?page=0&per_page=25', options)
+	.then(response => response.json())
+	.then(response => console.log(response))
+       
+
+
+
+  fetch('https://jsonplaceholder.typicode.com/users')
+     .then((res) =>res.json())
+     
+     .then((data) => data.map((info) =>{
+         const li = document.createElement('li')
+         li.innerHTML = `
+         <p># ${info.id}- ${info.name} de ${info.address.city} </p>     
+           
+         `
+         lista.append(li)
+         console.log(data)
+     }))
