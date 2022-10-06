@@ -244,9 +244,9 @@ fetch('https://free-nba.p.rapidapi.com/players?page=0&per_page=25', options)
 
 
   fetch('https://jsonplaceholder.typicode.com/users')
-     .then((res) =>res.json())
+     .then((response) =>response.json())
      
-     .then((data) => data.map((info) =>{
+     .then((response) => response.data((info) =>{
          const li = document.createElement('li')
          li.innerHTML = `
          <p># ${info.id}- ${info.name} de ${info.address.city} </p>     
