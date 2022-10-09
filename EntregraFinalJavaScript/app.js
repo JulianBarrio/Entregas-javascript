@@ -46,8 +46,8 @@ botonComprar.addEventListener("click", () =>{
         duration: 5000,
         newWindow: true,
         close: true,
-        gravity: "bottom", // `top` or `bottom`
-        position: "center", // `left`, `center` or `right`
+        gravity: `bottom`, // `top` or `bottom`
+        position: `right`, // `left`, `center` or `right`
          stopOnFocus: true, // Prevents dismissing of toast on hover
         style: {
           background: "linear-gradient(to right, #00b09b, #96c93d)",
@@ -133,12 +133,41 @@ verCarrito.addEventListener("click", pintarCarrito)
 
 const eliminarProducto = () => {
     const foundId = carrito.find((Element) => Element.id)
-
+    swal({
+        title: "Eliminaste un producto",
+        icon: "error",
+        button: "continuar",
+      });
     carrito = carrito.filter((carritoId) => {
         return carritoId !== foundId;
+        
     })
     pintarCarrito()
 }
 
+// fetch con api de nba mejores jugadores 
 
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': 'edbd74efb8msh71c81c9091cd4dbp103596jsn8f7c631923ed',
+		'X-RapidAPI-Host': 'free-nba.p.rapidapi.com'
+	}
+};
+
+fetch('https://free-nba.p.rapidapi.com/players?page=0&per_page=25', options)
+	.then(response => response.json())
+	.then(response =>{
+        let element = document.getElementById('elem')
+        element.innerHTML = `
+        <p>${response.data[0].first_name}</p>
+        <p>${response.data[0].last_name}</p>
+        <p>${response.data[0].team.full_name}</p>
+        <p>${response.data[0].team.conference}</p>
+        `
+        
+        console.log(response)
+        console.log(response.data[0].last_name)
+    })
+	.catch(err => console.error(err));
 
