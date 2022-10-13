@@ -28,6 +28,8 @@ stockProductos.forEach((producto) => {
     `
 contenedorProductos.appendChild(div)
 
+// creando boton comprar y el push al carrito
+
 let botonComprar = document.createElement("button");
 botonComprar.innerText = "comprar"
 botonComprar.className ="comprar"
@@ -101,6 +103,8 @@ const modalContainer = document.getElementById("modal-container");
     `
     modalContainer.append(carritoContent)
 
+    // crear boton para elminar el product
+
     let eliminar = document.createElement("span")
     eliminar.innerText = "Borrar"
     eliminar.className = "delete-product";
@@ -133,41 +137,11 @@ verCarrito.addEventListener("click", pintarCarrito)
 
 const eliminarProducto = () => {
     const foundId = carrito.find((Element) => Element.id)
-    swal({
-        title: "Eliminaste un producto",
-        icon: "error",
-        button: "continuar",
-      });
+    
     carrito = carrito.filter((carritoId) => {
         return carritoId !== foundId;
         
     })
     pintarCarrito()
 }
-
-// fetch con api de nba mejores jugadores 
-
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'edbd74efb8msh71c81c9091cd4dbp103596jsn8f7c631923ed',
-		'X-RapidAPI-Host': 'free-nba.p.rapidapi.com'
-	}
-};
-
-fetch('https://free-nba.p.rapidapi.com/players?page=0&per_page=25', options)
-	.then(response => response.json())
-	.then(response =>{
-        let element = document.getElementById('elem')
-        element.innerHTML = `
-        <p>${response.data[0].first_name}</p>
-        <p>${response.data[0].last_name}</p>
-        <p>${response.data[0].team.full_name}</p>
-        <p>${response.data[0].team.conference}</p>
-        `
-        
-        console.log(response)
-        console.log(response.data[0].last_name)
-    })
-	.catch(err => console.error(err));
 
